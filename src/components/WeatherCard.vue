@@ -9,7 +9,14 @@ defineProps({
 
 })
 
+const emit = defineEmits(['remove-place'])
+
 const showDetail = ref(false)
+
+const removePlace = (placeName) => {
+  emit('remove-place', placeName.location.name)
+  showDetail.value = false
+}
 </script>
 
 <template>
@@ -42,7 +49,7 @@ const showDetail = ref(false)
 
     <!-- info -->
     <div v-show="showDetail">
-      <WeatherInfo :place="place" @close-info="showDetail = false"/>
+      <WeatherInfo :place="place" @close-info="showDetail = false" @remove-place="removePlace(place.location.name)"/>
     </div>
 
     <!-- forecast btn -->
